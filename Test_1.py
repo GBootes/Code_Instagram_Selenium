@@ -23,7 +23,7 @@ ps=driver.find_element_by_name("password").send_keys(passw)
 driver.implicitly_wait(10)
 driver.find_element_by_xpath("//span[button/@class='_qv64e _gexxb _4tgw8 _njrw0']").click()
 
-driver.find_element_by_xpath("//div[@class='_5ayw3 _ohiyl']/input[1]").send_keys('#TenisAAA')
+driver.find_element_by_xpath("//div[@class='_5ayw3 _ohiyl']/input[1]").send_keys('#tenisAAA')
 driver.find_element_by_xpath("//a[@class='_ndl3t']/div[1]").click()
 
 driver.find_element_by_xpath("//*[@id='react-root']/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]").click()
@@ -33,10 +33,11 @@ numPost=eval(driver.find_element_by_xpath("//*[@id='react-root']/section/main/ar
 
 #Lista nombre de usuarios
 userList=[]
+users=[]
 
 for i in range(1,numPost+1):
 
-    if(i==1 or i==numPost+1):
+    if(i==1 or i==numPost):
 
         Time(int(2.5e7))
         #WebDriverWait(driver, 1000).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[3]/div/div[1]/div/div/a"))).click()
@@ -49,3 +50,18 @@ for i in range(1,numPost+1):
         #WebDriverWait(driver, 1000).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[3]/div/div[1]/div/div/a[2]"))).click()
         driver.find_element_by_xpath("/html/body/div[3]/div/div[1]/div/div/a[2]").click()
         userList.append(driver.find_element_by_xpath("/html/body/div[3]/div/div[2]/div/article/header/div[2]/div[1]/div[1]/a").get_attribute('title'))
+
+users.append(userList[0])
+
+for i in userList:
+    
+    s=True
+    for k in users:
+
+        if (k==i):
+
+            s=False
+
+    if (s):
+
+        users.append(i)
