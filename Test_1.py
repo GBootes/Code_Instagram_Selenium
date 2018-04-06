@@ -4,19 +4,43 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+########################################################################
+#                           WAIT FUNCTION                              #
+########################################################################
 def Time(t):
 
     for i in range(0,t):
 
         a=i
-        
+#----------------------------------------------------------------------#
+
+########################################################################
+#                           CONCAT FUNCTION                            #
+########################################################################
+def Concat(x):
+
+    k=""
+    for i in x:
+
+        k=k+str(i)
+
+    return k
+#----------------------------------------------------------------------#
+
+########################################################################
+#                      EXTERNAL FILE WITH USERS                        #
+########################################################################   
 def Data_Out(file,x):
     
     DataOut=open(file,'a')
     DataOut.write(x)
     DataOut.write('\n')
     DataOut.close
+#----------------------------------------------------------------------#
 
+########################################################################
+#                           REPEAT USERS                               #
+########################################################################
 def User_Repeat(userList,users,file2):
 
     for i in userList:
@@ -37,14 +61,11 @@ def User_Repeat(userList,users,file2):
         Data_Out(file2,i)
 
     return users
+#----------------------------------------------------------------------#
 
-DataLog=open('DataLog.txt','r')
-user=DataLog.readline()
-passw=DataLog.readline()
-url=DataLog.readline()
-t1=DataLog.readline()
-t2=DataLog.readline()
-
+########################################################################
+#                           MAIN SEARCH                                #
+########################################################################
 def Search_Profile(user,passw,url,t1,t2,file1,file2,HT):
     
     driver=webdriver.Chrome("C:\Selenium\chromedriver.exe")
@@ -57,11 +78,17 @@ def Search_Profile(user,passw,url,t1,t2,file1,file2,HT):
     logBtn=driver.find_element_by_xpath("//span[button/@class='_qv64e _gexxb _4tgw8 _njrw0']").click()
 
     driver.find_element_by_xpath("//div[@class='_5ayw3 _ohiyl']/input[1]").send_keys(HT)
+    Time(int(eval(t1)))
     driver.find_element_by_xpath("//a[@class='_ndl3t']/div[1]").click()
+    Time(int(eval(t1)))
 
     #Número de Post
     numPost=eval(driver.find_element_by_xpath("//*[@id='react-root']/section/main/article/header/div/span/span").get_attribute('innerHTML'))
-
+    print(numPost)
+    if (type(numPost)==tuple):
+        
+        numPost=eval(Concat(numPost))
+    print(numPost)
     driver.find_element_by_xpath("//*[@id='react-root']/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]").click()
 
     #Lista nombre de usuarios
@@ -69,6 +96,8 @@ def Search_Profile(user,passw,url,t1,t2,file1,file2,HT):
     users=[]
 
     for i in range(numPost):
+
+        print(i)
 
         if(i==0):
 
@@ -100,7 +129,15 @@ def Search_Profile(user,passw,url,t1,t2,file1,file2,HT):
     users=User_Repeat(userList,users,file2)
 
     return users
+#----------------------------------------------------------------------#
+
+DataLog=open('DataLog.txt','r')
+user=DataLog.readline()
+passw=DataLog.readline()
+url=DataLog.readline()
+t1=DataLog.readline()
+t2=DataLog.readline()
 
 profiles=[]
 #User,#Password,#URL,#Time_1,#Time_2,#Archive all users,#Archive users,#HashTag
-profiles=Search_Profile(user,passw,url,t1,t2,'Test1.txt','Test2.txt','#camiloferrer')
+profiles=Search_Profile(user,passw,url,t1,t2,'UserList.txt','UsersNR.txt','#ventasmedellin')
