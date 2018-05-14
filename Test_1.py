@@ -1,134 +1,89 @@
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-import Time as T
-import Concat as C
+import Time as Tm
+import Concat as Conc
 import Data_Out as DO
 import User_Repeat as UR
-
-########################################################################
-#                           CONCAT FUNCTION                            #
-########################################################################
-def Concat(x):
-
-    k=""
-    for i in x:
-
-        k=k+str(i)
-
-    return k
-#----------------------------------------------------------------------#
-
-########################################################################
-#                      EXTERNAL FILE WITH USERS                        #
-########################################################################   
-def Data_Out(file,x):
-    
-    DataOut=open(file,'a')
-    DataOut.write(x)
-    DataOut.write('\n')
-    DataOut.close
-#----------------------------------------------------------------------#
-
-########################################################################
-#                           REPEAT USERS                               #
-########################################################################
-def User_Repeat(userList,users,file2):
-
-    for i in userList:
-    
-        s=True
-        for k in users:
-
-            if (k==i):
-
-                s=False
-
-        if (s):
-
-            users.append(i)
-
-    for i in users:
-
-        Data_Out(file2,i)
-
-    return users
-#----------------------------------------------------------------------#
 
 ########################################################################
 #                           MAIN SEARCH                                #
 ########################################################################
 def Search_Profile(user,passw,url,t1,t2,file1,file2,HT):
-    
+
+    #-----------Open Instagram Web Site--------------------
     driver=webdriver.Chrome("C:\Selenium\chromedriver.exe")
     driver.get(url)
     driver.maximize_window()
+    #------------------------------------------------------
 
+    #-----------------------User Login-------------------------------
     userField=driver.find_element_by_name("username").send_keys(user)
     passField=driver.find_element_by_name("password").send_keys(passw)
     logBtn=driver.find_element_by_xpath("//*[@id='react-root']/section/main/div/article/div/div[1]/div/form/span/button").click()
-    T.time(int(eval(t1)))
-    
-    driver.get('https://www.instagram.com/')
-    
-    driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/div/div").click()
-    driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/input").send_keys(HT)
-    
-    T.time(int(eval(t1)))
-    driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]/div").click()
-    T.time(int(eval(t1)))
+    Tm.time(int(eval(t1)))
+    #----------------------------------------------------------------
 
-    #Número de Post
-    numPost=eval(driver.find_element_by_xpath("//*[@id='react-root']/section/main/article/header/div/span/span").get_attribute('innerHTML'))
-    print(numPost)
+    #------------Refresh page---------------
+    driver.get('https://www.instagram.com/')
+    #---------------------------------------
+
+    #----------------------Search Hashtag-----------------------------
+    #driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/div/div").click()
+    driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/input").send_keys(HT)
+    Tm.time(int(eval(t1)))
+    #driver.find_element_by_xpath("//*[@id='react-root']/section/div/span").click()
+    driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]/div").click()
+    Tm.time(int(eval(t1)))
+    #-----------------------------------------------------------------
+
+    #------------------------Post Number------------------------------
+    numPost=eval(driver.find_element_by_xpath("//*[@id='react-root']/section/main/article/header/div[2]/span/span").get_attribute('innerHTML'))
 
     if (type(numPost)==tuple):
         
-        numPost=eval(Concat(numPost))
-        
-    print(numPost)
-    driver.find_element_by_xpath("//*[@id='react-root']/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]").click()
+        numPost=eval(Conc.concat(numPost))
+    #------------------------------------------------------------------
 
-    #Lista nombre de usuarios
+    driver.find_element_by_xpath("//*[@id='react-root']/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]").click()
     userList=[]
     users=[]
 
     for i in range(numPost):
 
-        print(i)
-
         if(i==0):
-    
-            userList.append(driver.find_element_by_xpath("/html/body/div[3]/div/div[2]/div/article/header/div[2]/div[1]/div[1]/a").get_attribute('title'))
-            print(userList[i])
-            T.time(int(eval(t1)))
+
+            #userList.append(driver.find_element_by_class_name('_2g7d5 notranslate _iadoq').get_attribute('title'))
+            userList.append('tenismedellin100')
+            Tm.time(int(eval(t1)))
             driver.find_element_by_xpath("/html/body/div[3]/div/div[1]/div/div/a").click()
-            T.time(int(eval(t2)))
-            Data_Out(file1,userList[i])
+            Tm.time(int(eval(t2)))
+            DO.dataOut(file1,userList[i])
+            print(i)
 
         elif(i==numPost-1):
 
             userList.append(driver.find_element_by_xpath("/html/body/div[3]/div/div[2]/div/article/header/div[2]/div[1]/div[1]/a").get_attribute('title'))
-            Data_Out(file1,userList[i])
+            DO.dataOut(file1,userList[i])
+            print(i)
         
         else:
 
             userList.append(driver.find_element_by_xpath("/html/body/div[3]/div/div[2]/div/article/header/div[2]/div[1]/div[1]/a").get_attribute('title'))
-            T.time(int(eval(t1)))
+            Tm.time(int(eval(t1)))
             driver.find_element_by_xpath("/html/body/div[3]/div/div[1]/div/div/a[2]").click()
-            T.time(int(eval(t2)))
-            Data_Out(file1,userList[i])
+            Tm.time(int(eval(t2)))
+            DO.dataOut(file1,userList[i])
+            print(i)
 
     driver.quit()
 
     users.append(userList[0])
 
-    users=User_Repeat(userList,users,file2)
+    users=UR.repeat(userList,users,file2)
 
     return users
-#----------------------------------------------------------------------#
+########################################################################
+#                                 END                                  #
+########################################################################
 
 with open('DataLog.txt') as d:
 
@@ -142,4 +97,4 @@ t2=DataLog[4]
 
 profiles=[]
 #User,#Password,#URL,#Time_1,#Time_2,#Archive all users,#Archive users,#HashTag
-profiles=Search_Profile(user,passw,url,t1,t2,'UserList.txt','UsersNRep.txt','#CamiloFerrer')
+profiles=Search_Profile(user,passw,url,t1,t2,'UserList.txt','UsersNRep.txt','#zapatosmedellin')

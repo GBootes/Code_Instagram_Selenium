@@ -1,7 +1,7 @@
 ########################################################################
 #                      EXTERNAL FILE WITH USERS                        #
 ########################################################################   
-def DataOut(file,x):
+def dataOut(file,x):
     
     DataOut=open(file,'a')
     DataOut.write(x)
