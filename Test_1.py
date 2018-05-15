@@ -1,13 +1,16 @@
 from selenium import webdriver
-import Time as Tm
+from selenium.webdriver.common.keys import Keys
+import time
 import Concat as Conc
 import Data_Out as DO
 import User_Repeat as UR
+import User_Info as UI
+import DataBase_csv as DBcsv
 
 ########################################################################
 #                           MAIN SEARCH                                #
 ########################################################################
-def Search_Profile(user,passw,url,t1,t2,file1,file2,HT):
+def Search_Profile(user,passw,url,file1,file2,HT):
 
     #-----------Open Instagram Web Site--------------------
     driver=webdriver.Chrome("C:\Selenium\chromedriver.exe")
@@ -19,7 +22,7 @@ def Search_Profile(user,passw,url,t1,t2,file1,file2,HT):
     userField=driver.find_element_by_name("username").send_keys(user)
     passField=driver.find_element_by_name("password").send_keys(passw)
     logBtn=driver.find_element_by_xpath("//*[@id='react-root']/section/main/div/article/div/div[1]/div/form/span/button").click()
-    Tm.time(int(eval(t1)))
+    time.sleep(1)
     #----------------------------------------------------------------
 
     #------------Refresh page---------------
@@ -29,17 +32,17 @@ def Search_Profile(user,passw,url,t1,t2,file1,file2,HT):
     #----------------------Search Hashtag-----------------------------
     #driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/div/div").click()
     driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/input").send_keys(HT)
-    Tm.time(int(eval(t1)))
-    #driver.find_element_by_xpath("//*[@id='react-root']/section/div/span").click()
+    time.sleep(1)
     driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]/div").click()
-    Tm.time(int(eval(t1)))
+    time.sleep(1)
     #-----------------------------------------------------------------
 
     #------------------------Post Number------------------------------
-    numPost=eval(driver.find_element_by_xpath("//*[@id='react-root']/section/main/article/header/div[2]/span/span").get_attribute('innerHTML'))
-
+    numPost=eval(driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]/div/div/div[2]/span/span").get_attribute('innerHTML'))
+    print(numPost)
     if (type(numPost)==tuple):
-        
+
+        print('ss')
         numPost=eval(Conc.concat(numPost))
     #------------------------------------------------------------------
 
@@ -53,9 +56,9 @@ def Search_Profile(user,passw,url,t1,t2,file1,file2,HT):
 
             #userList.append(driver.find_element_by_class_name('_2g7d5 notranslate _iadoq').get_attribute('title'))
             userList.append('tenismedellin100')
-            Tm.time(int(eval(t1)))
-            driver.find_element_by_xpath("/html/body/div[3]/div/div[1]/div/div/a").click()
-            Tm.time(int(eval(t2)))
+            time.sleep(1)
+            driver.find_element_by_xpath("/html/body/div[3]/div/div[1]/div/div/a").send_keys(Keys.ARROW_RIGHT)
+            time.sleep(1)
             DO.dataOut(file1,userList[i])
             print(i)
 
@@ -68,19 +71,27 @@ def Search_Profile(user,passw,url,t1,t2,file1,file2,HT):
         else:
 
             userList.append(driver.find_element_by_xpath("/html/body/div[3]/div/div[2]/div/article/header/div[2]/div[1]/div[1]/a").get_attribute('title'))
-            Tm.time(int(eval(t1)))
-            driver.find_element_by_xpath("/html/body/div[3]/div/div[1]/div/div/a[2]").click()
-            Tm.time(int(eval(t2)))
+            time.sleep(1)
+            driver.find_element_by_xpath("/html/body/div[3]/div/div[1]/div/div/a[2]").send_keys(Keys.ARROW_RIGHT)
+            time.sleep(1)
             DO.dataOut(file1,userList[i])
             print(i)
-
-    driver.quit()
 
     users.append(userList[0])
 
     users=UR.repeat(userList,users,file2)
 
-    return users
+    post=[]
+    followers=[]
+    for i in users:
+        
+        Info=UI.userInfo(i,driver)
+        post.append(Info[0])
+        followers.append(Info[1])
+
+    driver.quit()
+    
+    return users,post,followers
 ########################################################################
 #                                 END                                  #
 ########################################################################
@@ -92,9 +103,20 @@ with open('DataLog.txt') as d:
 user=DataLog[0]
 passw=DataLog[1]
 url=DataLog[2]
-t1=DataLog[3]
-t2=DataLog[4]
 
 profiles=[]
 #User,#Password,#URL,#Time_1,#Time_2,#Archive all users,#Archive users,#HashTag
-profiles=Search_Profile(user,passw,url,t1,t2,'UserList.txt','UsersNRep.txt','#zapatosmedellin')
+profiles=Search_Profile(user,passw,url,'UserList.txt','UsersNRep.txt','#multimarcamedellin')
+
+DB=[]
+n=len(profiles[0])
+for i in range(0,n):
+
+    auxDB=[]
+    for j in profiles:
+
+      auxDB.append(j[i])
+
+    DB.append(auxDB)
+
+DBcsv.db(DB)
