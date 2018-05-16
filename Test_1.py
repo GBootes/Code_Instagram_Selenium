@@ -32,18 +32,18 @@ def Search_Profile(user,passw,url,file1,file2,HT):
     #----------------------Search Hashtag-----------------------------
     #driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/div/div").click()
     driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/input").send_keys(HT)
-    time.sleep(1)
-    driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]/div").click()
-    time.sleep(1)
+    time.sleep(2)
     #-----------------------------------------------------------------
 
     #------------------------Post Number------------------------------
     numPost=eval(driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]/div/div/div[2]/span/span").get_attribute('innerHTML'))
-    print(numPost)
+    
     if (type(numPost)==tuple):
 
-        print('ss')
         numPost=eval(Conc.concat(numPost))
+        
+    driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]/div").click()
+    time.sleep(2)
     #------------------------------------------------------------------
 
     driver.find_element_by_xpath("//*[@id='react-root']/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]").click()
@@ -72,7 +72,7 @@ def Search_Profile(user,passw,url,file1,file2,HT):
 
             userList.append(driver.find_element_by_xpath("/html/body/div[3]/div/div[2]/div/article/header/div[2]/div[1]/div[1]/a").get_attribute('title'))
             time.sleep(1)
-            driver.find_element_by_xpath("/html/body/div[3]/div/div[1]/div/div/a[2]").send_keys(Keys.ARROW_RIGHT)
+            driver.find_element_by_xpath("/html/body/div[3]/div/div[1]/div/div/a[1]").send_keys(Keys.ARROW_RIGHT)
             time.sleep(1)
             DO.dataOut(file1,userList[i])
             print(i)
@@ -106,7 +106,7 @@ url=DataLog[2]
 
 profiles=[]
 #User,#Password,#URL,#Time_1,#Time_2,#Archive all users,#Archive users,#HashTag
-profiles=Search_Profile(user,passw,url,'UserList.txt','UsersNRep.txt','#multimarcamedellin')
+profiles=Search_Profile(user,passw,url,'UserList.txt','UsersNRep.txt','#ventasmedellinonline')
 
 DB=[]
 n=len(profiles[0])
