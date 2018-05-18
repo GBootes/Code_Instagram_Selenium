@@ -1,9 +1,18 @@
 import csv
 
-def db(myData):
+def db(data,fcsv):
      
-    myFile = open('DB_1.csv', 'w')
-    with myFile:
-        writer = csv.writer(myFile)
-        writer.writerows(myData)
-     
+    with open(fcsv,'w',newline='') as f:
+
+        w=csv.writer(f)
+
+        w.writerows([['Username','#Post','#Followers','Last_Photo','Phone_1','Biography']])
+            
+        try:
+            
+            w.writerows(data)
+
+        except:
+
+            w.writerows(data[0:5])
+            print('Error: ',data[0])
