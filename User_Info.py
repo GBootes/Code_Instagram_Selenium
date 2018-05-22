@@ -11,8 +11,10 @@ def userInfo(user,driver,emoj):
     time.sleep(1)
     post=driver.find_element_by_xpath("//*[@id='react-root']/section/main/div/header/section/ul/li[1]/span/span").get_attribute('innerHTML')
     followers=driver.find_element_by_xpath("//*[@id='react-root']/section/main/div/header/section/ul/li[2]/a/span").get_attribute('innerHTML')
+
     #Biography
     try:
+        
         bio=driver.find_element_by_xpath("//*[@id='react-root']/section/main/div/header/section/div[2]/span/span").text
         bio=bio.translate(emoj)
         bio=DE.without_emoji(bio)
@@ -27,7 +29,8 @@ def userInfo(user,driver,emoj):
     try:
 
         lastph=driver.find_element_by_xpath("//*[@id='react-root']/section/main/div/article/div/div/h2").get_attribute('innerHTML')
-
+        lastph='Private Account'
+        
     except:
 
         driver.find_element_by_xpath("//*[@id='react-root']/section/main/div/article/div[1]/div/div[1]/div[1]/a/div/div[2]").click()
