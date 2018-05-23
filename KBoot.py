@@ -29,6 +29,7 @@ def Search_Profile(user,passw,url,file1,file2,HT):
     if (type(numPost)==tuple):
 
         numPost=eval(Conc.concat(numPost))
+    print('Total Post:',numPost)
     #-----------------------------------------------------------------
 
     #--------------------------Close advertising----------------------
