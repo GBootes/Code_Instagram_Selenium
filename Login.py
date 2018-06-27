@@ -19,7 +19,11 @@ def log(url,user,passw):
     #------------Refresh page---------------
     driver.get('https://www.instagram.com/')
     time.sleep(3)
-    driver.find_element_by_xpath("//*[@id='react-root']/section/div/span").click()
+    try:
+        
+        driver.find_element_by_xpath("//*[@id='react-root']/section/div/span").click()
+    except:
+        print('No Advertising')
     #---------------------------------------
 
     return driver
