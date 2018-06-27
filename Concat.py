@@ -7,5 +7,11 @@ def concat(x):
     for i in x:
 
         k=k+str(i)
+    a=''
+    for i in k:
 
-    return k
+        if (i.isdigit()):
+
+            a=a+i
+
+    return a

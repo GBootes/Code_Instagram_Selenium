@@ -29,12 +29,10 @@ def userInfo(user,driver,emoj):
     try:
 
         link=driver.find_element_by_xpath("//*[@id='react-root']/section/main/div/header/section/div[2]/a").get_attribute('innerHTML')
-        print('Link: ',link)
 
     except:
 
         link='No link'
-        print('Link: ',link)
 
     numL=Number.num(link)
 
