@@ -48,4 +48,8 @@ def userInfo(user,driver,emoj):
         time.sleep(2)        
         lastph=driver.find_element_by_xpath("/html/body/div[3]/div/div[2]/div/article/div[2]/div[2]/a/time").get_attribute('title')
 
+    if (num1==numL):
+
+        numL=''
+
     return post,followers,lastph,num1,numL,bio,link
