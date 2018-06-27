@@ -15,7 +15,7 @@ import DataBase_csv as DBcsv
 #                           MAIN SEARCH                                #
 ########################################################################
 def Search_Profile(user,passw,url,file1,file2,HT):
-
+    
     driver=login.log(url,user,passw)
 
     #----------------------Search Hashtag-----------------------------
@@ -53,30 +53,36 @@ def Search_Profile(user,passw,url,file1,file2,HT):
     users.append(userList[0])
 
     users=UR.repeat(userList,users,file2)
+    
+    print('Users saved')
 
     post=[]
     followers=[]
     Bio=[]
-    Num=[]
+    Num1=[]
+    NumL=[]
     Dateph=[]
+    Link=[]
     for user in users:
         
         Info=UI.userInfo(user,driver,emoj)
         post.append(Info[0])
         followers.append(Info[1])
         Dateph.append(Info[2])
-        Num.append(Info[3])
-        Bio.append(Info[4])
+        Num1.append(Info[3])
+        NumL.append(Info[4])
+        Bio.append(Info[5])
+        Link.append(Info[6])
 
     driver.quit()
     
-    return users,post,followers,Dateph,Num,Bio
+    return users,post,followers,Dateph,Num1,NumL,Bio,Link
 ########################################################################
 #                                 END                                  #
 ########################################################################
 
 time.clock()
-emoj=dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
+emoj=dict.fromkeys(range(0x1000000, sys.maxunicode + 1), 0xfffd)
 with open('DataLog.txt') as d:
 
     DataLog=d.read().splitlines()
@@ -101,5 +107,5 @@ for i in range(0,n):
 
     DB.append(auxDB)
 
-DBcsv.db(DB,'DB_Report.csv')
+DBcsv.db(DB,'Test.csv')
 print(time.clock(),'seconds')
