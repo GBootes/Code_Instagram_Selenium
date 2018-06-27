@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import emoji
 import time
 import sys
 import Login as login
@@ -29,6 +28,11 @@ def Search_Profile(user,passw,url,file1,file2,HT):
     if (type(numPost)==tuple):
 
         numPost=eval(Conc.concat(numPost))
+
+    elif(type(numPost)==float):
+
+        numPost=eval(Conc.concat(str(numPost)))
+        
     print('Total Post:',numPost)
     #-----------------------------------------------------------------
 

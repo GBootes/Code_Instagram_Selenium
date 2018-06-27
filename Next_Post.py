@@ -65,7 +65,6 @@ def next(driver,numPost,file1,Keys):
                     except:
 
                          print (i+1,"Unexpected error:", sys.exc_info()[0])
-                         i=numPost
                     
           i+=1
 
