@@ -1,18 +1,26 @@
 import csv
+import sys
 
 def db(data,fcsv):
-     
+
+    aux=[]
     with open(fcsv,'w',newline='') as f:
 
         w=csv.writer(f)
 
         w.writerows([['Username','#Post','#Followers','Last_Photo','Phone_1','Phone_2','Phone_3','Biography', 'Link']])
-            
-        try:
-            
-            w.writerows(data)
 
-        except:
+        k=1
+        for i in data:
 
-            w.writerows(data[0:5])
-            print('Error: ',data[0])
+            aux.append(i)
+            try:
+
+                w.writerows(aux)
+
+            except:
+
+                print(k,'Error:',sys.exc_info()[0])
+
+            aux=[]
+            k=k+1
