@@ -75,12 +75,14 @@ profiles=(users,)+profiles
 
 DB=[]
 n=len(profiles[0])
+print('# Users:',n)
 for i in range(0,n):
 
     auxDB=[]
     for j in profiles:
 
-      auxDB.append(j[i])
+        print(j)
+        auxDB.append(j[i])
 
     DB.append(auxDB)
 
