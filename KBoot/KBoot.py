@@ -64,6 +64,7 @@ def Search_Profile(user,passw,url,file1,file2,HT):
     followers=[]
     Bio=[]
     Num1=[]
+    Num2=[]
     NumL=[]
     Dateph=[]
     Link=[]
@@ -74,13 +75,14 @@ def Search_Profile(user,passw,url,file1,file2,HT):
         followers.append(Info[1])
         Dateph.append(Info[2])
         Num1.append(Info[3])
-        NumL.append(Info[4])
-        Bio.append(Info[5])
-        Link.append(Info[6])
+        Num2.append(Info[4])
+        NumL.append(Info[5])
+        Bio.append(Info[6])
+        Link.append(Info[7])
 
     driver.quit()
     
-    return users,post,followers,Dateph,Num1,NumL,Bio,Link
+    return users,post,followers,Dateph,Num1,Num2,NumL,Bio,Link
 ########################################################################
 #                                 END                                  #
 ########################################################################
@@ -111,5 +113,5 @@ for i in range(0,n):
 
     DB.append(auxDB)
 
-DBcsv.db(DB,'Test.csv')
+DBcsv.db(DB,'DB_Report.csv')
 print(time.clock(),'seconds')

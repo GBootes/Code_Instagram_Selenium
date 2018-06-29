@@ -1,12 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import emoji
 import time
 import sys
 import User_Info as UI
 import DataBase_csv as DBcsv
-
-emoj=dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
 
 with open('DataLog.txt') as d:
 
@@ -43,26 +40,32 @@ def u_info(users):
     post=[]
     followers=[]
     Bio=[]
-    Num=[]
+    Num1=[]
+    Num2=[]
+    NumL=[]
     Dateph=[]
+    Link=[]
     for user in users:
         
         Info=UI.userInfo(user,driver,emoj)
         post.append(Info[0])
         followers.append(Info[1])
         Dateph.append(Info[2])
-        Num.append(Info[3])
-        Bio.append(Info[4])
+        Num1.append(Info[3])
+        Num2.append(Info[4])
+        NumL.append(Info[5])
+        Bio.append(Info[6])
+        Link.append(Info[7])
 
     driver.quit()
-
-    return post,followers,Dateph,Num,Bio
+    
+    return users,post,followers,Dateph,Num1,Num2,NumL,Bio,Link
 ########################################################################
 #                                 END                                  #
 ########################################################################
 
 time.clock()
-
+emoj=dict.fromkeys(range(0x1000000, sys.maxunicode + 1), 0xfffd)
 with open('UsersNRep.txt') as u:
 
     users=u.read().splitlines()
@@ -81,5 +84,5 @@ for i in range(0,n):
 
     DB.append(auxDB)
 
-DBcsv.db(DB,'DB_report.csv')
+DBcsv.db(DB,'DB_Report.csv')
 print(time.clock(),'seconds')
