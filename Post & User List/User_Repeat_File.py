@@ -1,4 +1,5 @@
 import Data_Out as DO
+import time
 
 ########################################################################
 #                           REPEAT USERS                               #
@@ -29,7 +30,7 @@ def repeat(fileIn1,fileIn2,fileOut):
     for i in users:
 
         DO.dataOut(fileOut,i)
+        DO.dataOut(fileIn2,i)
 
     return users
 #----------------------------------------------------------------------#
-
