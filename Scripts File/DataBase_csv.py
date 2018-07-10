@@ -8,7 +8,7 @@ def db(data,fcsv):
 
         w=csv.writer(f)
 
-        w.writerows([['Username','#Post','#Followers','Last_Photo','Phone_1','Phone_2','Phone_3','Biography', 'Link']])
+        w.writerows([['nombre','no_publicaciones','no_seguidores','fecha_ult_pub','tel1','tel2','tel3','bio', 'link','keyword']])
 
         k=1
         for i in data:

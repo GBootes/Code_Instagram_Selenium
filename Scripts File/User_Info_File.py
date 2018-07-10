@@ -84,5 +84,5 @@ for i in range(0,n):
 
     DB.append(auxDB)
 
-DBcsv.db(DB,'DB_Report.csv')
+DBcsv.db(DB,'base_ig_bootes_X.csv')
 print(time.clock(),'seconds')
