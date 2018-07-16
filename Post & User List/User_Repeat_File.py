@@ -14,6 +14,10 @@ def repeat(fileIn1,fileIn2,fileOut):
 
         users=f2.read().splitlines()
 
+    print('User List:',len(userList))
+    print('Users:',len(users))
+
+    aux=[]
     for i in userList:
     
         s=True
@@ -25,12 +29,13 @@ def repeat(fileIn1,fileIn2,fileOut):
 
         if (s):
 
+            aux.append(i)
             users.append(i)
 
-    for i in users:
+    print('Users no rep:',len(aux))
+
+    for i in aux:
 
         DO.dataOut(fileOut,i)
         DO.dataOut(fileIn2,i)
-
-    return users
 #----------------------------------------------------------------------#
