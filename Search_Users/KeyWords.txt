@@ -1,4 +1,4 @@
-#medellinventas
-#gorrasmedellin
-#relojesmedellin
-#oromedellin
+#blusasmedellin
+#gafasmedellin
+#medellintenis
+#zapatillasmedellin
