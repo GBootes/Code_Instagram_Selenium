@@ -21,7 +21,7 @@ def Search_Profile(user,passw,url,file1,file2,HT):
     #-----------------------------------------------------------------
 
     #------------------------Post Number------------------------------
-    numPost=eval(driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]/div/div/div[2]/span/span").get_attribute('innerHTML'))
+    numPost=driver.find_element_by_xpath("//*[@id='react-root']/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]/div/div/div[2]/span/span").get_attribute('innerHTML')
     
     if (type(numPost)==tuple):
 
@@ -30,6 +30,10 @@ def Search_Profile(user,passw,url,file1,file2,HT):
     elif(type(numPost)==float):
 
         numPost=eval(Conc.concat(str(numPost)))
+
+    elif(type(numPost)==str):
+
+        numPost=eval(Conc.concat(numPost))
         
     print('Total Post:',numPost)
     #-----------------------------------------------------------------

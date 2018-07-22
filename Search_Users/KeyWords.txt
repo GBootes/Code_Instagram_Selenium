@@ -1,4 +1,5 @@
-#blusasmedellin
-#gafasmedellin
-#medellintenis
-#zapatillasmedellin
+#calzadomedellin
+#lenceriamedellin
+#jeansmedellin
+#collaresmedellin
+#suculentasmedellin
