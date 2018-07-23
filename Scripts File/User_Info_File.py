@@ -42,6 +42,8 @@ except:
 ########################################################################
 def u_info(users):
 
+    print('Start:'time.ctime())
+
     post=[]
     followers=[]
     Bio=[]
@@ -91,3 +93,4 @@ for i in range(0,n):
 
 DBcsv.db(DB,'base_ig_bootes_X.csv')
 print(time.clock(),'seconds')
+print('Finish:',time.ctime())
