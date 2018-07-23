@@ -11,7 +11,7 @@ import Next_Post as NPost
 ########################################################################
 #                           MAIN SEARCH                                #
 ########################################################################
-def Search_Profile(user,passw,url,file1,file2,HT):
+def Search_Profile(user,passw,url,file1,file2,HT,fileR):
     
     driver=login.log(url,user,passw)
 
@@ -50,6 +50,15 @@ def Search_Profile(user,passw,url,file1,file2,HT):
     time.sleep(2)
     #-----------------------------------------------------------------
 
+    #--------------Initial time------------------
+    time_i=time.clock()
+
+    fileLog=open(fileR,'a')
+    fileLog.write('----SEARCH LOG '+HT+'----')
+    fileLog.write('\n')
+    fileLog.write('\n')
+    fileLog.write('INITIAL TIME: '+time.ctime())
+
     driver.find_element_by_xpath("//*[@id='react-root']/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]").click()
     time.sleep(2)
     users=[]
@@ -59,9 +68,22 @@ def Search_Profile(user,passw,url,file1,file2,HT):
     users.append(userList[0])
 
     users=UR.repeat(userList,users,file2)
-    
+
+    time_f=time.clock()
+    time4HT=abs(time_i-time_f)
     print('Users saved')
-    print (time.clock(),'secons')
+    print (time4HT,'secons','\n','Keyword:',HT)
+
+    fileLog.write('\n')
+    fileLog.write('FINAL TIME: '+time.ctime())
+    fileLog.write('\n')
+    fileLog.write('TOTAL TIME: '+time4HT+' seconds')
+    fileLog.write('\n')
+    fileLog.write('KEYWORD: '+HT)
+    fileLog.write('\n')
+    fileLog.write('TOTAL POSTS: '+len(userList))
+    fileLog.write('TOTAL USERS: '+len(users))
+    fileLog.close
     
     driver.quit()
     
@@ -91,7 +113,6 @@ for i in range(n):
 
     file1='PostList_X('+keywords[i]+'_x).txt'
     file2='UsersNRep_'+keywords[i]+'_x).txt'
+    fileR='LOG_Search_'+keywords[i]+'.txt'
 
-    Users.append(Search_Profile(user,passw,url,file1,file2,keywords[i]))
-
-    print(time.clock(),'seconds','\n','Keyword: ',keywords[i])
+    Users.append(Search_Profile(user,passw,url,file1,file2,keywords[i],fileR))
