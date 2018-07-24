@@ -5,6 +5,7 @@ import Data_Out as DO
 ########################################################################
 def repeat(userList,users,fileOut):
 
+    aux=[]
     for i in userList:
     
         s=True
@@ -16,11 +17,13 @@ def repeat(userList,users,fileOut):
 
         if (s):
 
+            aux.append(i)
             users.append(i)
 
-    for i in users:
+    for i in aux:
 
         DO.dataOut(fileOut,i)
+        DO.dataOut('Users.txt',i)
 
     return users
 #----------------------------------------------------------------------#

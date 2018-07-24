@@ -74,6 +74,6 @@ def userInfo(user,driver,emoj):
 
     except:
 
-        print('Error: Page not available')
+        print('Error user:',user,' Page not available')
 
         return '','','','','','','',''

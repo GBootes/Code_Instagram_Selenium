@@ -11,7 +11,7 @@ import Next_Post as NPost
 ########################################################################
 #                           MAIN SEARCH                                #
 ########################################################################
-def Search_Profile(user,passw,url,file1,file2,HT,fileR):
+def Search_Profile(user,passw,url,file1,file2,HT):
     
     driver=login.log(url,user,passw)
 
@@ -51,17 +51,16 @@ def Search_Profile(user,passw,url,file1,file2,HT,fileR):
     #-----------------------------------------------------------------
 
     #--------------Initial time------------------
-    time_i=time.clock()
-
-    fileLog=open(fileR,'a')
-    fileLog.write('----SEARCH LOG '+HT+'----')
-    fileLog.write('\n')
-    fileLog.write('\n')
-    fileLog.write('INITIAL TIME: '+time.ctime())
+    time_i=time.clock()        
+    DO.dataOut('SEARCH_LOG.txt','----SEARCH LOG '+HT+'----')
+    DO.dataOut('SEARCH_LOG.txt','INITIAL TIME: '+str(time.ctime()))
 
     driver.find_element_by_xpath("//*[@id='react-root']/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]").click()
     time.sleep(2)
-    users=[]
+
+    with open('Users.txt') as fusers:
+
+        users=fusers.read().splitlines()
 
     userList=NPost.next(driver,numPost,file1,Keys)
     
@@ -70,20 +69,18 @@ def Search_Profile(user,passw,url,file1,file2,HT,fileR):
     users=UR.repeat(userList,users,file2)
 
     time_f=time.clock()
-    time4HT=abs(time_i-time_f)
+    time4HT=str(abs(time_i-time_f))
     print('Users saved')
-    print (time4HT,'secons','\n','Keyword:',HT)
+    print (time4HT,'seconds','\n','Keyword:',HT)
 
-    fileLog.write('\n')
-    fileLog.write('FINAL TIME: '+time.ctime())
-    fileLog.write('\n')
-    fileLog.write('TOTAL TIME: '+time4HT+' seconds')
-    fileLog.write('\n')
-    fileLog.write('KEYWORD: '+HT)
-    fileLog.write('\n')
-    fileLog.write('TOTAL POSTS: '+len(userList))
-    fileLog.write('TOTAL USERS: '+len(users))
-    fileLog.close
+    DO.dataOut('SEARCH_LOG.txt','FINAL TIME: '+str(time.ctime()))
+    DO.dataOut('SEARCH_LOG.txt','TOTAL TIME: '+time4HT+' seconds')
+    DO.dataOut('SEARCH_LOG.txt','KEYWORD: '+HT)
+    DO.dataOut('SEARCH_LOG.txt','TOTAL POSTS: '+str(len(userList)))
+    DO.dataOut('SEARCH_LOG.txt','TOTAL USERS: '+str(len(users)))
+    DO.dataOut('SEARCH_LOG.txt','\n')
+    DO.dataOut('SEARCH_LOG.txt','----------------------------------------')
+    DO.dataOut('SEARCH_LOG.txt','\n')
     
     driver.quit()
     
@@ -113,6 +110,5 @@ for i in range(n):
 
     file1='PostList_X('+keywords[i]+'_x).txt'
     file2='UsersNRep_'+keywords[i]+'_x).txt'
-    fileR='LOG_Search_'+keywords[i]+'.txt'
 
-    Users.append(Search_Profile(user,passw,url,file1,file2,keywords[i],fileR))
+    Users.append(Search_Profile(user,passw,url,file1,file2,keywords[i]))
