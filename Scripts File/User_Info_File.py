@@ -42,7 +42,7 @@ except:
 ########################################################################
 def u_info(users):
 
-    print('Start:'time.ctime())
+    print('Start:',time.ctime())
 
     post=[]
     followers=[]

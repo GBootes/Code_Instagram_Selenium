@@ -58,13 +58,11 @@ def Search_Profile(user,passw,url,file1,file2,HT):
     driver.find_element_by_xpath("//*[@id='react-root']/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]").click()
     time.sleep(2)
 
-    with open('Users.txt') as fusers:
+    with open('Users.txt','a') as fusers:
 
         users=fusers.read().splitlines()
 
     userList=NPost.next(driver,numPost,file1,Keys)
-    
-    users.append(userList[0])
 
     users=UR.repeat(userList,users,file2)
 
