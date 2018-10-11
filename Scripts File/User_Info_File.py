@@ -4,6 +4,7 @@ import time
 import sys
 import User_Info as UI
 import DataBase_csv as DBcsv
+import Login as login
 
 with open('DataLog.txt') as d:
 
@@ -20,17 +21,14 @@ driver.maximize_window()
 #------------------------------------------------------
 
 #-----------------------User Login-------------------------------
-userField=driver.find_element_by_name("username").send_keys(user)
-passField=driver.find_element_by_name("password").send_keys(passw)
-logBtn=driver.find_element_by_xpath("//*[@id='react-root']/section/main/div/article/div/div[1]/div/form/span/button").click()
-time.sleep(1)
+driver=login.log(url,user,passw)
 #----------------------------------------------------------------
 
 #------------Refresh page---------------
 driver.get('https://www.instagram.com/')
 time.sleep(3)
 try:
-    
+
     driver.find_element_by_xpath("//*[@id='react-root']/section/div/span").click()
 except:
 
@@ -53,7 +51,7 @@ def u_info(users):
     Dateph=[]
     Link=[]
     for user in users:
-        
+
         Info=UI.userInfo(user,driver,emoj)
         post.append(Info[0])
         followers.append(Info[1])
@@ -65,7 +63,7 @@ def u_info(users):
         Link.append(Info[7])
 
     driver.quit()
-    
+
     return users,post,followers,Dateph,Num1,Num2,NumL,Bio,Link
 ########################################################################
 #                                 END                                  #
